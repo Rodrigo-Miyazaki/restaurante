@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Restaurante.Api.Models;
+using Restaurante.Core.Models;
 
-namespace Restaurante.Api.EntityFramework.Mappings
+namespace Restaurante.Infrastructure.EntityFramework.Mappings
 {
     public class FoodMap : IEntityTypeConfiguration<Food>
     {

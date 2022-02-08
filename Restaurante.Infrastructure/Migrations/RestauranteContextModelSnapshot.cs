@@ -2,17 +2,15 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Restaurante.Api.EntityFramework;
+using Restaurante.Infrastructure.EntityFramework;
 
-namespace Restaurante.Api.Migrations
+namespace Restaurante.Infrastructure.Migrations
 {
     [DbContext(typeof(RestauranteContext))]
-    [Migration("20220208112441_Food")]
-    partial class Food
+    partial class RestauranteContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -20,7 +18,7 @@ namespace Restaurante.Api.Migrations
                 .HasAnnotation("ProductVersion", "5.0.13")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Restaurante.Api.Models.Food", b =>
+            modelBuilder.Entity("Restaurante.Core.Models.Food", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
