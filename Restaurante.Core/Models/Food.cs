@@ -1,4 +1,4 @@
-﻿namespace Restaurante.Api.Models
+﻿namespace Restaurante.Core.Models
 {
     public class Food
     {
