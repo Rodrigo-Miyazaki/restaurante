@@ -21,5 +21,12 @@ namespace Restaurante.Api.Controllers
             _foodApplicationService.Add(food);
             return Ok();
         }
+
+        [HttpPut]
+        public IActionResult Update(Food food)
+        {
+            _foodApplicationService.Update(food);
+            return Ok();
+        }
     }
 }

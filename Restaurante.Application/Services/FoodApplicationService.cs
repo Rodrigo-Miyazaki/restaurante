@@ -6,6 +6,8 @@ namespace Restaurante.Application.Services
     public interface IFoodApplicationService
     {
         public void Add(Food food);
+
+        public void Update(Food food);
     }
 
     public class FoodApplicationService : IFoodApplicationService
@@ -18,5 +20,7 @@ namespace Restaurante.Application.Services
         }
 
         public void Add(Food food) => _foodRepository.Add(food);
+
+        public void Update(Food food) => _foodRepository.Update(food);
     }
 }

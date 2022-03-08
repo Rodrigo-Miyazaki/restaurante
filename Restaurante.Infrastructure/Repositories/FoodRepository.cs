@@ -6,6 +6,8 @@ namespace Restaurante.Infrastructure.Repositories
     public interface IFoodRepository
     {
         void Add(Food food);
+
+        void Update(Food food);
     }
 
     public class FoodRepository : IFoodRepository
@@ -17,6 +19,12 @@ namespace Restaurante.Infrastructure.Repositories
         public void Add(Food food)
         {
             _context.Foods.Add(food);
+            _context.SaveChanges();
+        }
+
+        public void Update(Food food)
+        {
+            _context.Foods.Update(food);
             _context.SaveChanges();
         }
     }
