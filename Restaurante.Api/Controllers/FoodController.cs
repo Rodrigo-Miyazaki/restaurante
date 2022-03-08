@@ -22,6 +22,12 @@ namespace Restaurante.Api.Controllers
             return Ok();
         }
 
+        [HttpGet]
+        public Food GetById(int id)
+        {
+            return _foodApplicationService.GetById(id);
+        }
+
         [HttpPut]
         public IActionResult Update(Food food)
         {
