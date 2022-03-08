@@ -13,7 +13,7 @@ namespace Restaurante.UnitTests.Repositories
     public class FoodRepositoryTests : DataBaseRepositoryConfig
     {
         [Test]
-        public void Add_Should_Add_Food()
+        public void Should_Add_Food()
         {
             var dbIdentifier = GetDbIdentifier();
             var dbName = $"Food_{dbIdentifier}";
@@ -36,7 +36,7 @@ namespace Restaurante.UnitTests.Repositories
         }
 
         [Test]
-        public void Update_Should_Update_Food()
+        public void Should_Update_Food()
         {
             var dbIdentifier = GetDbIdentifier();
             var dbName = $"Food_{dbIdentifier}";
@@ -65,6 +65,29 @@ namespace Restaurante.UnitTests.Repositories
                  .Foods.FirstOrDefault(f => f.Id == food.Id);
             }
             foodDb.Should().BeEquivalentTo(updatedFood);
+        }
+
+        [Test]
+        public void Should_GetById_Food()
+        {
+            var dbIdentifier = GetDbIdentifier();
+            var dbName = $"Food_{dbIdentifier}";
+            var food = new FoodBuilder()
+                            .Generate();
+
+            var foodDb = (Food)null;
+            using (var context = new RestauranteContext(GetOptions(dbName)))
+            {
+                var repository = new FoodRepository(context);
+                repository.Add(food);
+            }
+
+            using (var context = new RestauranteContext(GetOptions(dbName)))
+            {
+                var repository = new FoodRepository(context);
+                foodDb = repository.GetById(food.Id);
+            }
+            foodDb.Should().BeEquivalentTo(food);
         }
     }
 }
