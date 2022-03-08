@@ -9,6 +9,8 @@ namespace Restaurante.Infrastructure.Repositories
     {
         void Add(Food food);
 
+        void Delete(Food food);
+
         Food GetById(int id);
 
         void Update(Food food);
@@ -23,6 +25,12 @@ namespace Restaurante.Infrastructure.Repositories
         public void Add(Food food)
         {
             _context.Foods.Add(food);
+            _context.SaveChanges();
+        }
+
+        public void Delete(Food food)
+        {
+            _context.Foods.Remove(food);
             _context.SaveChanges();
         }
 

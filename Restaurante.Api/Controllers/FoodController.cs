@@ -22,6 +22,13 @@ namespace Restaurante.Api.Controllers
             return Ok();
         }
 
+        [HttpDelete]
+        public IActionResult Delete(int id)
+        {
+            _foodApplicationService.Delete(id);
+            return Ok();
+        }
+
         [HttpGet]
         public Food GetById(int id)
         {
