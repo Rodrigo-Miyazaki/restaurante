@@ -7,6 +7,8 @@ namespace Restaurante.Application.Services
     {
         public void Add(Food food);
 
+        void Delete(int id);
+
         Food GetById(int id);
 
         public void Update(Food food);
@@ -22,6 +24,12 @@ namespace Restaurante.Application.Services
         }
 
         public void Add(Food food) => _foodRepository.Add(food);
+
+        public void Delete(int id)
+        {
+            var food = new Food { Id = id };
+            _foodRepository.Delete(food);
+        }
 
         public Food GetById(int id) => _foodRepository.GetById(id);
 
