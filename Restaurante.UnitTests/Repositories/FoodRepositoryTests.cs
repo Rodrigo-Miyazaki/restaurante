@@ -108,7 +108,7 @@ namespace Restaurante.UnitTests.Repositories
             using (var context = new RestauranteContext(GetOptions(dbName)))
             {
                 var repository = new FoodRepository(context);
-                repository.Delete(food);
+                repository.Remove(food);
             }
 
             using (var context = new RestauranteContext(GetOptions(dbName)))

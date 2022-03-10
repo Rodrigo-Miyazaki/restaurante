@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Newtonsoft.Json;
 using Restaurante.Api.Extensions;
 using Restaurante.Infrastructure.EntityFramework;
 
@@ -26,7 +27,12 @@ namespace Restaurante.Api
                 .AddApplicationServices()
                 .AddRepositoryServices();
 
-            services.AddControllers();
+            services
+                .AddControllers()
+                .AddNewtonsoftJson(opt =>
+            {
+                opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+            });
             services.AddDbContext<RestauranteContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),
                 b => b.MigrationsAssembly("Restaurante.Infrastructure")));

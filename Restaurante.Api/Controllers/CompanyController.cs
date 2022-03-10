@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Restaurante.Application.Services;
+using Restaurante.Application.Interfaces;
 using Restaurante.Core.Models;
 
 namespace Restaurante.Api.Controllers
@@ -8,17 +8,37 @@ namespace Restaurante.Api.Controllers
     [ApiController]
     public class CompanyController : ControllerBase
     {
-        private readonly ICompanyApplicationService _companyApplicationService;
+        private readonly IBaseApplicationService<Company> _companyApplicationService;
 
-        public CompanyController(ICompanyApplicationService companyApplicationService)
+        public CompanyController(IBaseApplicationService<Company> companyApplicationService)
         {
             _companyApplicationService = companyApplicationService;
         }
 
         [HttpPost]
-        public IActionResult Add(Company company)
+        public IActionResult Add([FromBody] Company company)
         {
             _companyApplicationService.Add(company);
+            return Ok();
+        }
+
+        [HttpDelete]
+        public IActionResult Remove(int id)
+        {
+            _companyApplicationService.Remove(id);
+            return Ok();
+        }
+
+        [HttpGet]
+        public Company GetById(int id)
+        {
+            return _companyApplicationService.GetById(id);
+        }
+
+        [HttpPut]
+        public IActionResult Update([FromBody] Company company)
+        {
+            _companyApplicationService.Update(company);
             return Ok();
         }
     }
