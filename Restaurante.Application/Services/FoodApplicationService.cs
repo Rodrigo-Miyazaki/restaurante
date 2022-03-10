@@ -1,34 +1,24 @@
-﻿using Restaurante.Core.Models;
-using Restaurante.Infrastructure.Repositories;
+﻿using Restaurante.Application.Interfaces;
+using Restaurante.Core.Models;
+using Restaurante.Infrastructure.Repositories.Intefaces;
 
 namespace Restaurante.Application.Services
 {
-    public interface IFoodApplicationService
+    public class FoodApplicationService : IBaseApplicationService<Food>
     {
-        public void Add(Food food);
+        private readonly IBaseRepository<Food> _foodRepository;
 
-        void Delete(int id);
-
-        Food GetById(int id);
-
-        public void Update(Food food);
-    }
-
-    public class FoodApplicationService : IFoodApplicationService
-    {
-        private readonly IFoodRepository _foodRepository;
-
-        public FoodApplicationService(IFoodRepository foodRepository)
+        public FoodApplicationService(IBaseRepository<Food> foodRepository)
         {
             _foodRepository = foodRepository;
         }
 
         public void Add(Food food) => _foodRepository.Add(food);
 
-        public void Delete(int id)
+        public void Remove(int id)
         {
             var food = new Food { Id = id };
-            _foodRepository.Delete(food);
+            _foodRepository.Remove(food);
         }
 
         public Food GetById(int id) => _foodRepository.GetById(id);
