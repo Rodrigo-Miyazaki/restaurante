@@ -2,8 +2,9 @@
 using Restaurante.Core.Models;
 using Restaurante.Infrastructure.EntityFramework;
 using Restaurante.Infrastructure.Repositories.Intefaces;
-using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Restaurante.Infrastructure.Repositories
 {
@@ -17,6 +18,15 @@ namespace Restaurante.Infrastructure.Repositories
         {
             _context.Companies.Add(company);
             _context.SaveChanges();
+        }
+
+        public async Task<List<Company>> GetAll(PaginationFilter filter)
+        {
+            return await _context.Companies
+               .Include(f => f.Address)
+               .Skip((filter.PageNumber - 1) * filter.PageSize)
+               .Take(filter.PageSize)
+               .ToListAsync();
         }
 
         public Company GetById(int id)

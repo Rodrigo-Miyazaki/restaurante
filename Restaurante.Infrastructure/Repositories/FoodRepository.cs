@@ -1,8 +1,11 @@
-﻿using Restaurante.Core.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using Restaurante.Core.Models;
 using Restaurante.Infrastructure.EntityFramework;
 using Restaurante.Infrastructure.Repositories.Intefaces;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Restaurante.Infrastructure.Repositories
 {
@@ -38,6 +41,14 @@ namespace Restaurante.Infrastructure.Repositories
         private Food GetBy(Func<Food, bool> predicate)
         {
             return _context.Foods.Where(predicate).FirstOrDefault();
+        }
+
+        public async Task<List<Food>> GetAll(PaginationFilter filter)
+        {
+            return await _context.Foods
+               .Skip((filter.PageNumber - 1) * filter.PageSize)
+               .Take(filter.PageSize)
+               .ToListAsync();
         }
     }
 }

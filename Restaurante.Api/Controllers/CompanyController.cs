@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Restaurante.Application.Interfaces;
 using Restaurante.Core.Models;
+using System.Threading.Tasks;
 
 namespace Restaurante.Api.Controllers
 {
@@ -29,10 +30,18 @@ namespace Restaurante.Api.Controllers
             return Ok();
         }
 
-        [HttpGet]
+        [HttpGet("{id}")]
         public Company GetById(int id)
         {
             return _companyApplicationService.GetById(id);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAll([FromQuery] PaginationFilter filter)
+        {
+            var validFilter = new PaginationFilter(filter.PageNumber, filter.PageSize);
+            var response = await _companyApplicationService.GetAll(validFilter);
+            return Ok(response);
         }
 
         [HttpPut]

@@ -1,6 +1,8 @@
 ﻿using Restaurante.Application.Interfaces;
 using Restaurante.Core.Models;
 using Restaurante.Infrastructure.Repositories.Intefaces;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Restaurante.Application.Services
 {
@@ -24,5 +26,7 @@ namespace Restaurante.Application.Services
         public Food GetById(int id) => _foodRepository.GetById(id);
 
         public void Update(Food food) => _foodRepository.Update(food);
+
+        public async Task<List<Food>> GetAll(PaginationFilter filter) => await _foodRepository.GetAll(filter);
     }
 }
