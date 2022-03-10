@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Restaurante.Application.Interfaces;
 using Restaurante.Application.Services;
 using Restaurante.Core.Models;
 
@@ -8,9 +9,9 @@ namespace Restaurante.Api.Controllers
     [ApiController]
     public class FoodController : ControllerBase
     {
-        private readonly IFoodApplicationService _foodApplicationService;
+        private readonly IBaseApplicationService<Food> _foodApplicationService;
 
-        public FoodController(IFoodApplicationService foodApplicationService)
+        public FoodController(IBaseApplicationService<Food> foodApplicationService)
         {
             _foodApplicationService = foodApplicationService;
         }
@@ -23,9 +24,9 @@ namespace Restaurante.Api.Controllers
         }
 
         [HttpDelete]
-        public IActionResult Delete(int id)
+        public IActionResult Remove(int id)
         {
-            _foodApplicationService.Delete(id);
+            _foodApplicationService.Remove(id);
             return Ok();
         }
 

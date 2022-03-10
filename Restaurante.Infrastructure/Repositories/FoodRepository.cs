@@ -1,22 +1,12 @@
 ﻿using Restaurante.Core.Models;
 using Restaurante.Infrastructure.EntityFramework;
+using Restaurante.Infrastructure.Repositories.Intefaces;
 using System;
 using System.Linq;
 
 namespace Restaurante.Infrastructure.Repositories
 {
-    public interface IFoodRepository
-    {
-        void Add(Food food);
-
-        void Delete(Food food);
-
-        Food GetById(int id);
-
-        void Update(Food food);
-    }
-
-    public class FoodRepository : IFoodRepository
+    public class FoodRepository : IBaseRepository<Food>
     {
         private readonly RestauranteContext _context;
 
@@ -28,7 +18,7 @@ namespace Restaurante.Infrastructure.Repositories
             _context.SaveChanges();
         }
 
-        public void Delete(Food food)
+        public void Remove(Food food)
         {
             _context.Foods.Remove(food);
             _context.SaveChanges();
