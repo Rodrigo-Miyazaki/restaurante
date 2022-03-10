@@ -17,37 +17,38 @@ namespace Restaurante.Api.Controllers
         }
 
         [HttpPost]
-        public IActionResult Add(Food food)
+        public async Task<IActionResult> Add(Food food)
         {
-            _foodApplicationService.Add(food);
+            await _foodApplicationService.AddAsync(food);
             return Ok();
         }
 
         [HttpDelete]
-        public IActionResult Remove(int id)
+        public async Task<IActionResult> Remove(int id)
         {
-            _foodApplicationService.Remove(id);
+            await _foodApplicationService.RemoveAsync(id);
             return Ok();
         }
 
         [HttpGet("{id}")]
-        public Food GetById([FromRoute] int id)
+        public async Task<IActionResult> GetById([FromRoute] int id)
         {
-            return _foodApplicationService.GetById(id);
+            var food = await _foodApplicationService.GetByIdAsync(id);
+            return Ok(food);
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAll([FromQuery] PaginationFilter filter)
         {
             var validFilter = new PaginationFilter(filter.PageNumber, filter.PageSize);
-            var response = await _foodApplicationService.GetAll(validFilter);
+            var response = await _foodApplicationService.GetAllAsync(validFilter);
             return Ok(response);
         }
 
         [HttpPut]
-        public IActionResult Update(Food food)
+        public async Task<IActionResult> Update(Food food)
         {
-            _foodApplicationService.Update(food);
+            await _foodApplicationService.UpdateAsync(food);
             return Ok();
         }
     }

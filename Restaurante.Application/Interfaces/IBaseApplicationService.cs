@@ -6,14 +6,14 @@ namespace Restaurante.Application.Interfaces
 {
     public interface IBaseApplicationService<T> where T : class
     {
-        T GetById(int id);
+        Task<T> GetByIdAsync(int id);
 
-        Task<List<T>> GetAll(PaginationFilter filter);
+        Task<List<T>> GetAllAsync(PaginationFilter filter);
 
-        void Add(T entity);
+        Task AddAsync(T entity);
 
-        void Remove(int id);
+        Task RemoveAsync(int id);
 
-        void Update(T entity);
+        Task UpdateAsync(T entity);
     }
 }

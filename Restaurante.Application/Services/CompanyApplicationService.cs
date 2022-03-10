@@ -15,18 +15,18 @@ namespace Restaurante.Application.Services
             _companyRepository = companyRepository;
         }
 
-        public void Add(Company company) => _companyRepository.Add(company);
+        public async Task AddAsync(Company company) => await _companyRepository.AddAsync(company);
 
-        public async Task<List<Company>> GetAll(PaginationFilter filter) => await _companyRepository.GetAll(filter);
+        public async Task<List<Company>> GetAllAsync(PaginationFilter filter) => await _companyRepository.GetAllAsync(filter);
 
-        public Company GetById(int id) => _companyRepository.GetById(id);
+        public async Task<Company> GetByIdAsync(int id) => await _companyRepository.GetByIdAsync(id);
 
-        public void Remove(int id)
+        public async Task RemoveAsync(int id)
         {
             var company = new Company { Id = id };
-            _companyRepository.Remove(company);
+            await _companyRepository.RemoveAsync(company);
         }
 
-        public void Update(Company company) => _companyRepository.Update(company);
+        public async Task UpdateAsync(Company company) => await _companyRepository.UpdateAsync(company);
     }
 }

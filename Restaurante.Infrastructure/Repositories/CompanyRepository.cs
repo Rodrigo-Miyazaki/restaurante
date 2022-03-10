@@ -14,13 +14,13 @@ namespace Restaurante.Infrastructure.Repositories
 
         public CompanyRepository(RestauranteContext context) => _context = context;
 
-        public void Add(Company company)
+        public async Task AddAsync(Company company)
         {
-            _context.Companies.Add(company);
-            _context.SaveChanges();
+            await _context.Companies.AddAsync(company);
+            await _context.SaveChangesAsync();
         }
 
-        public async Task<List<Company>> GetAll(PaginationFilter filter)
+        public async Task<List<Company>> GetAllAsync(PaginationFilter filter)
         {
             return await _context.Companies
                .Include(f => f.Address)
@@ -29,24 +29,24 @@ namespace Restaurante.Infrastructure.Repositories
                .ToListAsync();
         }
 
-        public Company GetById(int id)
+        public async Task<Company> GetByIdAsync(int id)
         {
-            return _context
+            return await _context
                  .Companies.Where(f => f.Id == id)
                  .Include(f => f.Address)
-                 .FirstOrDefault();
+                 .FirstOrDefaultAsync();
         }
 
-        public void Remove(Company company)
+        public async Task RemoveAsync(Company company)
         {
             _context.Companies.Remove(company);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public void Update(Company company)
+        public async Task UpdateAsync(Company company)
         {
             _context.Companies.Update(company);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
     }
 }
