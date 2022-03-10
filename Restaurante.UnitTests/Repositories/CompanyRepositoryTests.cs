@@ -8,13 +8,14 @@ using Restaurante.Infrastructure.Repositories;
 using Restaurante.UnitTests.Builders;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Restaurante.UnitTests.Repositories
 {
     public class CompanyRepositoryTests : DataBaseRepositoryConfig
     {
         [Test]
-        public void Should_Add_Company()
+        public async Task Should_Add_Company()
         {
             var dbIdentifier = GetDbIdentifier();
             var dbName = $"Company_{dbIdentifier}";
@@ -25,7 +26,7 @@ namespace Restaurante.UnitTests.Repositories
             using (var context = new RestauranteContext(GetOptions(dbName)))
             {
                 var repository = new CompanyRepository(context);
-                repository.Add(company);
+                await repository.AddAsync(company);
             }
 
             using (var context = new RestauranteContext(GetOptions(dbName)))
@@ -50,7 +51,7 @@ namespace Restaurante.UnitTests.Repositories
         }
 
         [Test]
-        public void Should_Update_Company()
+        public async Task Should_Update_Company()
         {
             var dbIdentifier = GetDbIdentifier();
             var dbName = $"Company_{dbIdentifier}";
@@ -64,13 +65,13 @@ namespace Restaurante.UnitTests.Repositories
             using (var context = new RestauranteContext(GetOptions(dbName)))
             {
                 var repository = new CompanyRepository(context);
-                repository.Add(company);
+                await repository.AddAsync(company);
             }
 
             using (var context = new RestauranteContext(GetOptions(dbName)))
             {
                 var repository = new CompanyRepository(context);
-                repository.Update(updatedCompany);
+                await repository.UpdateAsync(updatedCompany);
             }
 
             using (var context = new RestauranteContext(GetOptions(dbName)))

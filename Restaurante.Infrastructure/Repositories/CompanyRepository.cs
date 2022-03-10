@@ -2,8 +2,9 @@
 using Restaurante.Core.Models;
 using Restaurante.Infrastructure.EntityFramework;
 using Restaurante.Infrastructure.Repositories.Intefaces;
-using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Restaurante.Infrastructure.Repositories
 {
@@ -13,30 +14,39 @@ namespace Restaurante.Infrastructure.Repositories
 
         public CompanyRepository(RestauranteContext context) => _context = context;
 
-        public void Add(Company company)
+        public async Task AddAsync(Company company)
         {
-            _context.Companies.Add(company);
-            _context.SaveChanges();
+            await _context.Companies.AddAsync(company);
+            await _context.SaveChangesAsync();
         }
 
-        public Company GetById(int id)
+        public async Task<List<Company>> GetAllAsync(PaginationFilter filter)
         {
-            return _context
+            return await _context.Companies
+               .Include(f => f.Address)
+               .Skip((filter.PageNumber - 1) * filter.PageSize)
+               .Take(filter.PageSize)
+               .ToListAsync();
+        }
+
+        public async Task<Company> GetByIdAsync(int id)
+        {
+            return await _context
                  .Companies.Where(f => f.Id == id)
                  .Include(f => f.Address)
-                 .FirstOrDefault();
+                 .FirstOrDefaultAsync();
         }
 
-        public void Remove(Company company)
+        public async Task RemoveAsync(Company company)
         {
             _context.Companies.Remove(company);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public void Update(Company company)
+        public async Task UpdateAsync(Company company)
         {
             _context.Companies.Update(company);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
     }
 }

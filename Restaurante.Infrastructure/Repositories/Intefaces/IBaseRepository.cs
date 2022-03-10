@@ -1,13 +1,19 @@
-﻿namespace Restaurante.Infrastructure.Repositories.Intefaces
+﻿using Restaurante.Core.Models;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+namespace Restaurante.Infrastructure.Repositories.Intefaces
 {
     public interface IBaseRepository<T> where T : class
     {
-        T GetById(int id);
+        Task<T> GetByIdAsync(int id);
 
-        void Add(T entity);
+        Task<List<T>> GetAllAsync(PaginationFilter filter);
 
-        void Remove(T entity);
+        Task AddAsync(T entity);
 
-        void Update(T entity);
+        Task RemoveAsync(T entity);
+
+        Task UpdateAsync(T entity);
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Restaurante.Application.Interfaces;
 using Restaurante.Core.Models;
+using System.Threading.Tasks;
 
 namespace Restaurante.Api.Controllers
 {
@@ -16,29 +17,38 @@ namespace Restaurante.Api.Controllers
         }
 
         [HttpPost]
-        public IActionResult Add([FromBody] Company company)
+        public async Task<IActionResult> Add([FromBody] Company company)
         {
-            _companyApplicationService.Add(company);
+            await _companyApplicationService.AddAsync(company);
             return Ok();
         }
 
         [HttpDelete]
-        public IActionResult Remove(int id)
+        public async Task<IActionResult> Remove(int id)
         {
-            _companyApplicationService.Remove(id);
+            await _companyApplicationService.RemoveAsync(id);
             return Ok();
         }
 
-        [HttpGet]
-        public Company GetById(int id)
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(int id)
         {
-            return _companyApplicationService.GetById(id);
+            var company = await _companyApplicationService.GetByIdAsync(id);
+            return Ok(company);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAll([FromQuery] PaginationFilter filter)
+        {
+            var validFilter = new PaginationFilter(filter.PageNumber, filter.PageSize);
+            var response = await _companyApplicationService.GetAllAsync(validFilter);
+            return Ok(response);
         }
 
         [HttpPut]
-        public IActionResult Update([FromBody] Company company)
+        public async Task<IActionResult> Update([FromBody] Company company)
         {
-            _companyApplicationService.Update(company);
+            await _companyApplicationService.UpdateAsync(company);
             return Ok();
         }
     }
