@@ -1,8 +1,12 @@
-﻿using Restaurante.Core.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using Restaurante.Core.Models;
 using Restaurante.Infrastructure.EntityFramework;
 using Restaurante.Infrastructure.Repositories.Intefaces;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace Restaurante.Infrastructure.Repositories
 {
@@ -12,32 +16,40 @@ namespace Restaurante.Infrastructure.Repositories
 
         public FoodRepository(RestauranteContext context) => _context = context;
 
-        public void Add(Food food)
+        public async Task AddAsync(Food food)
         {
-            _context.Foods.Add(food);
-            _context.SaveChanges();
+            await _context.Foods.AddAsync(food);
+            await _context.SaveChangesAsync();
         }
 
-        public void Remove(Food food)
+        public async Task RemoveAsync(Food food)
         {
             _context.Foods.Remove(food);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public Food GetById(int id)
+        public async Task<Food> GetByIdAsync(int id)
         {
-            return GetBy(food => food.Id == id);
+            return await GetByAsync(food => food.Id == id);
         }
 
-        public void Update(Food food)
+        public async Task UpdateAsync(Food food)
         {
             _context.Foods.Update(food);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        private Food GetBy(Func<Food, bool> predicate)
+        private async Task<Food> GetByAsync(Expression<Func<Food, bool>> predicate)
         {
-            return _context.Foods.Where(predicate).FirstOrDefault();
+            return await _context.Foods.FirstOrDefaultAsync(predicate);
+        }
+
+        public async Task<List<Food>> GetAllAsync(PaginationFilter filter)
+        {
+            return await _context.Foods
+               .Skip((filter.PageNumber - 1) * filter.PageSize)
+               .Take(filter.PageSize)
+               .ToListAsync();
         }
     }
 }
