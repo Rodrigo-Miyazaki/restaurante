@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Restaurante.Application.Interfaces.Services;
 using Restaurante.Application.Services;
 using Restaurante.Application.Services.Interfaces;
 using Restaurante.Core.Models;
@@ -13,6 +14,9 @@ namespace Restaurante.Api.Extensions
         {
             services.AddScoped<IBaseApplicationService<Food>, FoodApplicationService>();
             services.AddScoped<IBaseApplicationService<Company>, CompanyApplicationService>();
+            services.AddScoped<IBaseApplicationService<Meal>, MealApplicationService>();
+
+            services.AddScoped<IMealCompanyApplicationService, MealCompanyApplicationService>();
             return services;
         }
 
@@ -20,6 +24,9 @@ namespace Restaurante.Api.Extensions
         {
             services.AddScoped<IBaseRepository<Food>, FoodRepository>();
             services.AddScoped<IBaseRepository<Company>, CompanyRepository>();
+            services.AddScoped<IBaseRepository<Meal>, MealRepository>();
+
+            services.AddScoped<IMealCompanyRepository, MealCompanyRepository>();
             return services;
         }
     }
