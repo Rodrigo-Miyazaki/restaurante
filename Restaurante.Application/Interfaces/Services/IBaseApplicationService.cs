@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Restaurante.Application.Interfaces
+namespace Restaurante.Application.Services.Interfaces
 {
     public interface IBaseApplicationService<T> where T : class
     {

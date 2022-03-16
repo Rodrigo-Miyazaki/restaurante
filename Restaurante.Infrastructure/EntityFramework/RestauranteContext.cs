@@ -7,6 +7,9 @@ namespace Restaurante.Infrastructure.EntityFramework
     {
         public virtual DbSet<Food> Foods { get; set; }
         public virtual DbSet<Company> Companies { get; set; }
+        public virtual DbSet<Meal> Meals { get; set; }
+        public virtual DbSet<MealCompany> MealCompany { get; set; }
+        public virtual DbSet<MealFood> MealFood { get; set; }
 
         public RestauranteContext(DbContextOptions<RestauranteContext> options)
         : base(options)
