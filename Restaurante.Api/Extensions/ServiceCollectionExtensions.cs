@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Restaurante.Application.Interfaces;
 using Restaurante.Application.Services;
+using Restaurante.Application.Services.Interfaces;
 using Restaurante.Core.Models;
 using Restaurante.Infrastructure.Repositories;
 using Restaurante.Infrastructure.Repositories.Intefaces;
