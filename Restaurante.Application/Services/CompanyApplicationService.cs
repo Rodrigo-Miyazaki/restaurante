@@ -1,4 +1,4 @@
-﻿using Restaurante.Application.Interfaces;
+﻿using Restaurante.Application.Services.Interfaces;
 using Restaurante.Core.Models;
 using Restaurante.Infrastructure.Repositories.Intefaces;
 using System.Collections.Generic;

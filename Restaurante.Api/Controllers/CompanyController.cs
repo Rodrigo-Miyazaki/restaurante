@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Restaurante.Application.Interfaces;
+using Restaurante.Application.Services.Interfaces;
 using Restaurante.Core.Models;
 using System.Threading.Tasks;
 
