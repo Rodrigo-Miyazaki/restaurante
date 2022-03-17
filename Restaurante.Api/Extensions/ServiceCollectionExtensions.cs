@@ -17,6 +17,7 @@ namespace Restaurante.Api.Extensions
             services.AddScoped<IBaseApplicationService<Meal>, MealApplicationService>();
 
             services.AddScoped<IMealCompanyApplicationService, MealCompanyApplicationService>();
+            services.AddScoped<IMealFoodApplicationService, MealFoodApplicationService>();
             return services;
         }
 
@@ -27,6 +28,7 @@ namespace Restaurante.Api.Extensions
             services.AddScoped<IBaseRepository<Meal>, MealRepository>();
 
             services.AddScoped<IMealCompanyRepository, MealCompanyRepository>();
+            services.AddScoped<IMealFoodRepository, MealFoodRepository>();
             return services;
         }
     }
